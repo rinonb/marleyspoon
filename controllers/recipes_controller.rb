@@ -1,5 +1,5 @@
 class RecipesController < ApplicationController
   def index
-    { status: 200 }
+    @title = "Recipes"
   end
 end

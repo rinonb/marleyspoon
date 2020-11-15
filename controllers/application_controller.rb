@@ -14,8 +14,8 @@ class ApplicationController
   end
 
   def call
-    puts action
-    @method_response = send(action)
+    response = send(action)
+    @method_response = response.is_a?(Hash) ? response : {}
     self.status = method_response[:status] || 200
     self.headers = build_headers
     self.content = build_response
@@ -27,7 +27,10 @@ class ApplicationController
   def json?
     return @json unless @json.nil?
 
-    @json = method_response.dig(:headers, 'Content-Type') == 'application/json'
+    @json = (
+      !method_response[:json].nil? ||
+      method_response.dig(:headers, 'Content-Type') == 'application/json'
+    )
   end
 
   def build_headers
@@ -40,6 +43,22 @@ class ApplicationController
   end
 
   def render_template
-    ['wow']
+    unless File.exists? template_path
+      raise ViewNotFoundError.new("View not found #{template_path}")
+    end
+
+    contents = File.read(template_path)
+    [ERB.new(contents).result(binding)]
+  end
+
+  def template_path
+    return @template_path if @template_path
+
+    template = File.join(templates_directory, "#{action}.html.erb")
+    @template_path = File.expand_path(File.join('../../views', template), __FILE__)
+  end
+
+  def templates_directory
+    self.class.name.downcase.sub('controller', '')
   end
 end
