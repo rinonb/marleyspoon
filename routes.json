@@ -1,0 +1,7 @@
+[
+  {
+    "path": "/recipes",
+    "action": "recipes#",
+    "method": "get"
+  }
+]
