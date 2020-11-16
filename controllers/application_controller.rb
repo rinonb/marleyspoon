@@ -1,26 +1,29 @@
 # All other controllers must extend this class
 class ApplicationController
-  class << self
-    def call(action)
-      new(action).call
-    end
-  end
+  attr_reader :action, :env, :method_response
 
-  attr_reader :action, :id, :method_response
-  attr_accessor :status, :headers, :content
-
-  def initialize(action:, id:)
+  def initialize(action:)
     @action = action
-    @id = id
+    @env = nil
   end
 
-  def call
+  def call(env)
+    @env = env
     response = send(action)
     @method_response = response.is_a?(Hash) ? response : {}
-    self.status = method_response[:status] || 200
-    self.headers = build_headers
-    self.content = build_response
-    self
+    status = method_response[:status] || 200
+
+    [
+      status,
+      build_headers,
+      [build_response]
+    ]
+  end
+
+  protected
+
+  def params
+    env['router.params']
   end
 
   private
@@ -40,7 +43,7 @@ class ApplicationController
   end
 
   def build_response
-    json? ? ([method_response[:json] || {}]) : render_template
+    json? ? (method_response[:json] || {}) : render_template
   end
 
   def render_template
@@ -49,7 +52,7 @@ class ApplicationController
     end
 
     contents = File.read(template_path)
-    [ERB.new(contents).result(binding)]
+    ERB.new(contents).result(binding)
   end
 
   def template_path
