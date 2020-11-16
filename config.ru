@@ -1,6 +1,6 @@
 require 'bundler'
 Bundler.require
 
-require './lib/bootstrap'
+require './config/bootstrap'
 
 Rack::Server.start app: Router.app_router, Port: 9292

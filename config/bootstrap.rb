@@ -1,4 +1,4 @@
-require_relative '../config/app_config'
+require_relative './app_config'
 require_relative './router'
 
 # Boot controllers
