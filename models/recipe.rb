@@ -11,6 +11,7 @@ class Recipe
   end
 
   attr_accessor(
+    :id,
     :title,
     :photo,
     :tags,
@@ -21,10 +22,15 @@ class Recipe
 
   def initialize(entry)
     @entry = entry
+    @id = entry.id
   end
 
   def photo=(photo_entry)
     @photo = photo_entry.fields[:file].url
+  end
+
+  def tags
+    @tags || []
   end
 
   def tags=(tag_entries)

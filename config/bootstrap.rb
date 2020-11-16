@@ -1,6 +1,10 @@
 require_relative './app_config'
 require_relative './router'
 
+# Load helpers
+helpers_path = File.join(AppConfig.root_path, 'helpers')
+Dir["#{helpers_path}/**/*.rb"].each { |file| require file }
+
 # Boot controllers
 require_relative '../controllers/application_controller'
 controllers_path = File.join(AppConfig.root_path, 'controllers')

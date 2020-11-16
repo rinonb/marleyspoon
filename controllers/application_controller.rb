@@ -1,5 +1,7 @@
 # All other controllers must extend this class
 class ApplicationController
+  include RenderHelpers
+
   attr_reader :action, :env, :method_response
 
   def initialize(action:)

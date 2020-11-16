@@ -1,1 +1,12 @@
-<h1><%= @id %></h1>
+<html>
+<head>
+  <title><%= @recipe.title %>></title>
+</head>
+<body>
+<h1><%= @recipe.title %></h1>
+<img src="<%= @recipe.photo %>" alt="<%= @recipe.title %>">
+<p><%= @recipe.tags.join(',') %></p>
+<p><%= markdown_render @recipe.description %></p>
+<p><%= @recipe.chef %></p>
+</body>
+</html>

@@ -7,7 +7,7 @@ module Contentful
     end
 
     def find(id)
-      entry id
+      Recipe.build_from_entry entry(id)
     end
   end
 end

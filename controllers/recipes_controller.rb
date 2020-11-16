@@ -4,7 +4,7 @@ class RecipesController < ApplicationController
   end
 
   def show
-    @id = params[:id]
+    @recipe = recipes_cdn.find(params[:id])
   end
 
   private

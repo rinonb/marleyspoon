@@ -1,14 +1,17 @@
 <html>
   <head>
-    <title>Hello!</title>
+    <title>All recipes</title>
   </head>
   <body>
     <h1><%= @title %></h1>
 
     <% @recipes.each do |recipe| %>
-      <pre>
-        <%= recipe.to_json %>
-      </pre>
+      <div>
+        <h3><%= recipe.title %></h3>
+        <image src="<%= recipe.photo %>" alt="<%= recipe.title %>" style="width: 200px; height: auto"></image>
+        <br><a href="/recipes/<%= recipe.id %>">Full recipe</a>
+        <hr>
+      </div>
     <% end %>
   </body>
 </html>
