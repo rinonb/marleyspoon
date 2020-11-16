@@ -14,4 +14,12 @@ class AppConfig
   def initialize
     @root_path = File.expand_path './'
   end
+
+  def contentful_credentials
+    {
+      space_id: ENV['CONTENTFUL_SPACE_ID'],
+      environment: ENV['CONTENTFUL_ENVIRONMENT'],
+      access_token: ENV['CONTENTFUL_ACCESS_TOKEN']
+    }
+  end
 end
