@@ -6,11 +6,12 @@ class ApplicationController
     end
   end
 
-  attr_reader :action, :method_response
+  attr_reader :action, :id, :method_response
   attr_accessor :status, :headers, :content
 
-  def initialize(action)
+  def initialize(action:, id:)
     @action = action
+    @id = id
   end
 
   def call

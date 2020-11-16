@@ -9,21 +9,29 @@ class Router
   attr_accessor :routes
 
   def initialize
-    @routes = {}
+    @routes = []
     process_routes
   end
 
   def handle(env)
     if (current_route = route(env['REQUEST_METHOD'], env['REQUEST_PATH']))
       klass = current_route[:controller]
-      klass.call(current_route[:method])
+      klass.call(action: current_route[:method], id: current_route[:id])
     else
       [404, {}, ['no!!']]
     end
   end
 
   def route(method, path)
-    routes[build_route_identifier(method: method, path: path)]
+    current_route = routes.find do |route|
+      route[:http_method] == method && !!(path =~ route[:matcher])
+    end
+
+    if current_route[:path].end_with? ':id'
+      current_route[:id] = path.split('/')[2]
+    end
+
+    current_route
   end
 
   private
@@ -43,21 +51,11 @@ class Router
   end
 
   def register_route(method:, path:, action:)
-    route_identifier =
-      build_route_identifier(
-        method: method,
-        path: path
-      )
-    routes[route_identifier] =
-      build_route(
-        method: method,
-        path: path,
-        action: action
-      )
-  end
-
-  def build_route_identifier(method:, path:)
-    "#{method.upcase}_#{path}"
+    routes << build_route(
+      method: method,
+      path: path,
+      action: action
+    )
   end
 
   def build_route(method:, path:, action:)
@@ -65,10 +63,15 @@ class Router
     controller = Object.const_get("#{controller_name.capitalize}Controller")
 
     {
-      http_method: method,
+      http_method: method.upcase,
       path: path,
       controller: controller,
-      method: method_name
+      method: method_name,
+      matcher: build_matcher(path)
     }
+  end
+
+  def build_matcher(path)
+    Regexp.new("^#{path.sub(':id', '[^\/]*$')}$")
   end
 end

@@ -3,5 +3,10 @@
     "path": "/recipes",
     "action": "recipes#index",
     "method": "get"
+  },
+  {
+    "path": "/recipes/:id",
+    "action": "recipes#show",
+    "method": "get"
   }
 ]
