@@ -10,3 +10,7 @@ Dir["#{controllers_path}/**/*.rb"].each { |file| require file }
 require_relative '../lib//exceptions//base_exception'
 libs_path = File.join(AppConfig.root_path, 'lib')
 Dir["#{libs_path}/**/*.rb"].each { |file| require file }
+
+# Load models
+models_path = File.join(AppConfig.root_path, 'models')
+Dir["#{models_path}/**/*.rb"].each { |file| require file }

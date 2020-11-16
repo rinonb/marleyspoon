@@ -1,7 +1,6 @@
 class RecipesController < ApplicationController
   def index
-    puts recipes.all
-    @title = "Recipes"
+    @recipes = recipes_cdn.all
   end
 
   def show
@@ -10,7 +9,7 @@ class RecipesController < ApplicationController
 
   private
 
-  def recipes
-    @recipes = Contentful::Recipes.new
+  def recipes_cdn
+    @recipes_cdn ||= Contentful::Recipes.new
   end
 end

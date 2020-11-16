@@ -4,5 +4,11 @@
   </head>
   <body>
     <h1><%= @title %></h1>
+
+    <% @recipes.each do |recipe| %>
+      <pre>
+        <%= recipe.to_json %>
+      </pre>
+    <% end %>
   </body>
 </html>
