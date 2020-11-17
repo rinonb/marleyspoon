@@ -26,8 +26,8 @@ class AppConfig
 
   def redis_config
     {
-      host: 'redis',
-      port: '6379'
+      host: ENV['REDIS_HOST'],
+      port: ENV['REDIS_PORT']
     }
   end
 end

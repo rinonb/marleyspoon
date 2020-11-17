@@ -4,8 +4,10 @@ Create a copy of the .env file
 
 ``cp .env.example .env``
 
-Make sure to fill env variables in the new .env file. You will need these variables to connect to Contentful
+Make sure to fill env variables in the new .env file. You will need these variables set before you can start the app:
 ```
+REDIS_HOST
+REDIS_PORT
 CONTENTFUL_SPACE_ID
 CONTENTFUL_ENVIRONMENT
 CONTENTFUL_ACCESS_TOKEN
@@ -24,7 +26,9 @@ docker-compose up
 
 #### Local host
 
-If you wish to run the app locally without docker:
+In order to run the app locally, without docker, you need to:
+1. Install Ruby 2.7.2
+2. Have Redis running
 
 ```
 bundle install
