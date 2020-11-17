@@ -1,17 +1,14 @@
-<html>
-  <head>
-    <title>All recipes</title>
-  </head>
-  <body>
-    <h1><%= @title %></h1>
-
-    <% @recipes.each do |recipe| %>
-      <div>
-        <h3><%= recipe.title %></h3>
-        <image src="<%= recipe.photo %>" alt="<%= recipe.title %>" style="width: 200px; height: auto"></image>
-        <br><a href="/recipes/<%= recipe.id %>">Full recipe</a>
-        <hr>
+<h1>Recipes</h1>
+<div class="row">
+  <% @recipes.each do |recipe| %>
+    <div class="col-sm">
+      <div class="card">
+        <img class="card-img-top" src="<%= recipe.photo %>" alt="<%= recipe.title %>">
+        <div class="card-body">
+          <h5 class="card-title"><%= recipe.title %></h5>
+          <a href="/recipes/<%= recipe.id %>" class="btn btn-primary">Full recipe</a>
+        </div>
       </div>
-    <% end %>
-  </body>
-</html>
+    </div>
+  <% end %>
+</div>

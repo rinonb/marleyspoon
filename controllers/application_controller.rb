@@ -2,7 +2,7 @@
 class ApplicationController
   include RenderHelpers
 
-  attr_reader :action, :env, :method_response
+  attr_reader :action, :env, :method_response, :layout, :title
 
   def initialize(action:)
     @action = action
@@ -53,7 +53,15 @@ class ApplicationController
       raise ViewNotFoundError.new("View not found #{template_path}")
     end
 
-    contents = File.read(template_path)
+    layout_template = File.read(layout_path)
+    template = File.read(template_path)
+
+    render(layout_template) do
+      render(template)
+    end
+  end
+
+  def render(contents)
     ERB.new(contents).result(binding)
   end
 
@@ -66,5 +74,12 @@ class ApplicationController
 
   def templates_directory
     self.class.name.downcase.sub('controller', '')
+  end
+
+  def layout_path
+    return @layout_path if @layout_path
+
+    layout = @layout || 'layouts/main.html.erb'
+    @layout_path = File.expand_path(File.join('../../views', layout), __FILE__)
   end
 end

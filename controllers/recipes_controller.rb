@@ -5,6 +5,7 @@ class RecipesController < ApplicationController
 
   def show
     @recipe = recipes_cdn.find(params[:id])
+    @title = @recipe.title
   end
 
   private

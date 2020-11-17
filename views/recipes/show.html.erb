@@ -1,12 +1,10 @@
-<html>
-<head>
-  <title><%= @recipe.title %>></title>
-</head>
-<body>
 <h1><%= @recipe.title %></h1>
 <img src="<%= @recipe.photo %>" alt="<%= @recipe.title %>">
-<p><%= @recipe.tags.join(',') %></p>
+<b><%= @recipe.chef %></b>
 <p><%= markdown_render @recipe.description %></p>
-<p><%= @recipe.chef %></p>
-</body>
-</html>
+<p>
+  <% @recipe.tags.each do |tag| %>
+    <span class="badge badge-secondary"><%= tag %></span>
+  <% end %>
+</p>
+<a href="/recipes">< All recipes</a>
