@@ -1,0 +1,9 @@
+AllCops:
+  TargetRubyVersion: 2.7.2
+  NewCops: enable
+  Exclude:
+    - 'spec/**/*'
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/RaiseArgs:
+  Enabled: false

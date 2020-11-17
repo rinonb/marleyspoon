@@ -1,5 +1,6 @@
 require 'json'
 
+# Caches and fetches values using Redis
 class Cache
   attr_reader :redis
 
@@ -16,23 +17,17 @@ class Cache
   end
 
   def fetch(key, value = nil, expire_minutes = 60)
-    if !value && !block_given?
-      raise ArgumentError.new('Value or block is required')
-    end
+    raise ArgumentError('Value or block is required') if !value && !block_given?
 
     current_value = redis.get(key)
 
-    if current_value
-      current_value
-    else
-      new_value = if block_given?
-                    yield
-                  else
-                    value
-                  end
-      redis.set(key, new_value.to_json, px: ms_timeout(expire_minutes))
-      new_value
-    end
+    return current_value if current_value
+
+    new_value = block_given? ? yield : value
+    raise ArgumentError.new('No value given') unless new_value
+
+    redis.set(key, new_value.to_json, px: ms_timeout(expire_minutes))
+    new_value
   end
 
   def fetch!(key, value = nil, timeout = 1.hour)

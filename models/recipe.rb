@@ -1,9 +1,11 @@
+# Resource model that parses entries and fetches from cache
 class Recipe
   class << self
     def build_from_entry(entry, cache: false)
       recipe = new(entry)
       entry.fields.each do |field, value|
         next unless value
+
         recipe.send("#{field}=", value) if recipe.respond_to? field
       end
       recipe.store! if cache
@@ -27,18 +29,20 @@ class Recipe
   attr_accessor(
     :id,
     :title,
+    :description
+  )
+
+  attr_reader(
+    :entry,
     :photo,
-    :tags,
-    :description,
     :chef
   )
-  attr_reader :entry
 
   def initialize(entry = nil)
-    if entry
-      @entry = entry
-      @id = entry.id
-    end
+    return unless entry
+
+    @entry = entry
+    @id = entry.id
   end
 
   def photo=(photo)
@@ -72,7 +76,7 @@ class Recipe
     "recipe-#{id}"
   end
 
-  def to_json
+  def to_json(options = {})
     {
       id: id,
       title: title,
@@ -80,13 +84,13 @@ class Recipe
       tags: tags,
       description: description,
       chef: chef
-    }
+    }.merge(options)
   end
 
   private
 
   def entry_value(entry, field_name)
-    if entry.class == Contentful::Entry
+    if entry.instance_of? Contentful::Entry
       entry.fields[field_name.to_sym]
     else
       entry

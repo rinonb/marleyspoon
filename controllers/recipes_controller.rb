@@ -1,3 +1,4 @@
+# Recipes controller
 class RecipesController < ApplicationController
   def index
     @recipes = recipes_cdn.all

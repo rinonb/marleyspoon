@@ -1,5 +1,6 @@
 require 'singleton'
 
+# Sets and helps loading default app configurations
 class AppConfig
   include Singleton
 

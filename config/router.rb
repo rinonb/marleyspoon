@@ -1,6 +1,7 @@
 require 'singleton'
 require 'json'
 
+# Registers routes and handles http requests via the hanami router
 class Router
   class << self
     def app_router

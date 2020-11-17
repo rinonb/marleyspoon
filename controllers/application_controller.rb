@@ -49,9 +49,7 @@ class ApplicationController
   end
 
   def render_template
-    unless File.exists? template_path
-      raise ViewNotFoundError.new("View not found #{template_path}")
-    end
+    raise ViewNotFoundError.new("View not found #{template_path}") unless File.exist?(template_path)
 
     layout_template = File.read(layout_path)
     template = File.read(template_path)

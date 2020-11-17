@@ -1,6 +1,7 @@
 require 'net/http'
 
 module Contentful
+  # Handles calls to contentful cdn api via the contentful client gem
   class Base
     attr_reader :credentials, :client
 

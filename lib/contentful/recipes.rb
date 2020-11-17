@@ -1,4 +1,5 @@
 module Contentful
+  # Fetches contentful recipe entries
   class Recipes < Contentful::Base
     def all
       entries('recipe').map do |entry|
