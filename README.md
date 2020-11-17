@@ -29,6 +29,7 @@ docker-compose up
 In order to run the app locally, without docker, you need to:
 1. Install Ruby 2.7.2
 2. Have Redis running
+3. Set REDIS_HOST and REDIS_PORT to your local redis instance in .env
 
 ```
 bundle install

@@ -5,6 +5,8 @@ services:
     build: .
     container_name: marleyspoon
     environment:
+      - REDIS_HOST
+      - REDIS_PORT
       - CONTENTFUL_SPACE_ID
       - CONTENTFUL_ENVIRONMENT
       - CONTENTFUL_ACCESS_TOKEN
