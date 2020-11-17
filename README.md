@@ -4,7 +4,12 @@ Create a copy of the .env file
 
 ``cp .env.example .env``
 
-Make sure to fill env variables in the new .env file.
+Make sure to fill env variables in the new .env file. You will need these variables to connect to Contentful
+```
+CONTENTFUL_SPACE_ID
+CONTENTFUL_ENVIRONMENT
+CONTENTFUL_ACCESS_TOKEN
+```
 ***
 ### Starting the app
 
