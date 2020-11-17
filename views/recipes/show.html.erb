@@ -1,6 +1,8 @@
 <h1><%= @recipe.title %></h1>
 <img src="<%= @recipe.photo %>" alt="<%= @recipe.title %>">
-<b><%= @recipe.chef %></b>
+<p>
+  <b><%= @recipe.chef %></b>
+</p>
 <p><%= markdown_render @recipe.description %></p>
 <p>
   <% @recipe.tags.each do |tag| %>

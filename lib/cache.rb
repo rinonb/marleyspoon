@@ -5,7 +5,7 @@ class Cache
   attr_reader :redis
 
   def initialize
-    @redis = Redis.new
+    @redis = Redis.new(AppConfig.instance.redis_config)
   end
 
   # @param [String] key

@@ -23,4 +23,11 @@ class AppConfig
       access_token: ENV['CONTENTFUL_ACCESS_TOKEN']
     }
   end
+
+  def redis_config
+    {
+      host: 'redis',
+      port: '6379'
+    }
+  end
 end

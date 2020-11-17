@@ -8,5 +8,10 @@
     "path": "/recipes/:id",
     "action": "recipes#show",
     "method": "get"
+  },
+  {
+    "path": "/",
+    "action": "recipes#index",
+    "method": "get"
   }
 ]
