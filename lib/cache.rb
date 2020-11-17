@@ -8,14 +8,26 @@ class Cache
     @redis = Redis.new
   end
 
+  # @param [String] key
+  # @param [] value - anything that responds to_json
+  # @param [Integer] expire_minutes
+  # @return [String, Boolean] value
   def store(key, value, expire_minutes = 60)
     redis.set(key, value.to_json, px: ms_timeout(expire_minutes))
   end
 
+  # @param [String] key
+  # @return [String]
   def get(key)
     redis.get(key)
   end
 
+  # Fetches from redis or sets if key doesn't exist from value or yielded block
+  #   Returns the fetched or set value
+  # @param [String] key
+  # @param [] value - anything that responds to_json
+  # @param [Integer] expire_minutes
+  # @return [String] value
   def fetch(key, value = nil, expire_minutes = 60)
     raise ArgumentError('Value or block is required') if !value && !block_given?
 
@@ -30,14 +42,19 @@ class Cache
     new_value
   end
 
-  def fetch!(key, value = nil, timeout = 1.hour)
+  # Deletes existing value from redis and sets new one.
+  # @param [String] key
+  # @param [] value - anything that responds to_json
+  # @param [Integer] expire_minutes
+  # @return [String] value
+  def fetch!(key, value = nil, expire_minutes = 60)
     redis.del(key)
     new_value = if block_given?
                   yield
                 else
                   value
                 end
-    redis.set(key, new_value.to_json, px: ms_timeout(timeout))
+    redis.set(key, new_value.to_json, px: ms_timeout(expire_minutes))
     new_value
   end
 

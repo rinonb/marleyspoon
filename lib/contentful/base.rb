@@ -14,13 +14,17 @@ module Contentful
       )
     end
 
+    # Returns an array of entries from contentful
+    # @param [String] content_type
+    # @return [Array<Contentful::Entry>]
     def entries(content_type)
-      puts 'requesting entries'
       client.entries(content_type: content_type)
     end
 
+    # Fetches and returns a single entry from contentful
+    # @param [String] id
+    # @return [Contentful::Entry]
     def entry(id)
-      puts 'requesting entry'
       client.entry(id)
     end
   end

@@ -20,6 +20,10 @@ class Router
     process_routes
   end
 
+  # @param [String] http_method
+  # @param [String] path
+  # @param [String] action
+  # @return [Hanami::Routing::Route]
   def register_route(http_method:, path:, action:)
     app_router.send(http_method, path, to: controller_action(action))
   end
