@@ -13,3 +13,5 @@ gem 'erb'
 gem 'contentful'
 gem 'redcarpet'
 gem 'redis'
+
+gem 'rspec', require: false

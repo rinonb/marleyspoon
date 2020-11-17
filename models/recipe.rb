@@ -74,6 +74,7 @@ class Recipe
 
   def to_json
     {
+      id: id,
       title: title,
       photo: photo,
       tags: tags,

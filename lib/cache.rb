@@ -20,7 +20,7 @@ class Cache
       raise ArgumentError.new('Value or block is required')
     end
 
-    current_value = Redis.get(key)
+    current_value = redis.get(key)
 
     if current_value
       current_value

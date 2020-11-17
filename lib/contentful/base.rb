@@ -14,10 +14,12 @@ module Contentful
     end
 
     def entries(content_type)
+      puts 'requesting entries'
       client.entries(content_type: content_type)
     end
 
     def entry(id)
+      puts 'requesting entry'
       client.entry(id)
     end
   end
